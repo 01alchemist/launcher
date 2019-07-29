@@ -2,7 +2,7 @@
   "name": "@01/launcher",
   "version": "1.0.0",
   "author": "Nidin Vinayakan <01@01alchemist.com>",
-  "private": true,
+  "private": false,
   "engines": {
     "node": "12"
   },
