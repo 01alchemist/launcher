@@ -1,6 +1,6 @@
 {
   "name": "@01/launcher",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Nidin Vinayakan <01@01alchemist.com>",
   "private": false,
   "engines": {
@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "umd:main": "dist/index.js",
   "module": "dist/index.js",
-  "typings": "src/index.ts",
+  "typings": "types/index.d.ts",
   "files": [
     "dist"
   ],
