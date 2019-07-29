@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const { launch } = require("../dist/index.js");
+
+launch({
+  mode: "cli",
+  exitProcessOnClose: true
+});
