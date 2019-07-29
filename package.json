@@ -1,6 +1,6 @@
 {
   "name": "@01/launcher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Nidin Vinayakan <01@01alchemist.com>",
   "private": false,
   "engines": {
@@ -11,7 +11,8 @@
   "module": "dist/index.js",
   "typings": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "bin": {
     "launch": "./cli/index"
