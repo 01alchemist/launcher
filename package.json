@@ -3,7 +3,11 @@
   "version": "1.0.4",
   "author": "Nidin Vinayakan <01@01alchemist.com>",
   "private": false,
-  "keywords": ["process", "launcher", "spawn"],
+  "keywords": [
+    "process",
+    "launcher",
+    "spawn"
+  ],
   "engines": {
     "node": "12"
   },
