@@ -5,9 +5,9 @@
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,
-    "declaration": false,
+    "declaration": true,
     "sourceMap": true,
-    "rootDir": "./",
+    "rootDir": "./src",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -21,6 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": "./",
+    "outDir": "./dist",
     "paths": {
       "*": ["src/*", "node_modules/*"]
     },

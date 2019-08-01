@@ -2,9 +2,9 @@ const fs = require("fs-extra");
 const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const PrettierPlugin = require("prettier-webpack-plugin");
-const DeclarationBundlerPlugin = require("tsd-webpack-plugin");
+// const DeclarationBundlerPlugin = require("tsd-webpack-plugin");
 const pkg = require("./package.json");
 
 const mode =
@@ -74,10 +74,10 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new PrettierPlugin(),
-    new DeclarationBundlerPlugin({
-      moduleName: "launcher",
-      out: "types.d.ts"
-    })
+    // new DeclarationBundlerPlugin({
+    //   moduleName: "launcher",
+    //   out: "types.d.ts"
+    // })
   ],
   module: {
     rules: [
