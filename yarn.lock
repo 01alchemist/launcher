@@ -4759,11 +4759,6 @@ ts-loader@6.0.4:
     micromatch "^4.0.0"
     semver "^6.0.0"
 
-tsd-webpack-plugin@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/tsd-webpack-plugin/-/tsd-webpack-plugin-1.0.3.tgz#24c379264e8356b904830f945764fbc3ff543c76"
-  integrity sha512-gtQT/uqDHJ1pmGiyJNUMtTJhToUwG6P5lVbBrx02Kg6j4BGfek5G0FMeixrA8pKlIH15wHEEGR2O+21bEOT3pQ==
-
 tslib@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"

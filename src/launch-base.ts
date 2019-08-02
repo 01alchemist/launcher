@@ -6,6 +6,7 @@ const chalk = require("chalk");
 import * as child_process from "child_process";
 import * as readline from "readline";
 import * as fs from "fs";
+import terminal from "./terminal";
 
 const { cursorTo } = readline;
 const { spawn } = child_process;
@@ -42,7 +43,7 @@ if (!fs.existsSync(envPath)) {
   envPath = `${baseDir}/.env`;
 }
 if (fs.existsSync(envPath)) {
-  console.log(`Loading env vars from: ${envPath}`);
+  terminal.log(`Loading env vars from: ${envPath}`);
 
   require("dotenv").config({
     path: envPath
@@ -140,7 +141,7 @@ export async function launch(_options: Options = {}): Promise<string> {
             w(" program ")
           )}?. Please tell me, which program you want to launch!\n`
         ) + `\n   Example: launch echo "Hello World"\n`;
-      console.log(message);
+      terminal.log(message);
       process.exit(1);
     } else {
       const message =
@@ -154,12 +155,12 @@ export async function launch(_options: Options = {}): Promise<string> {
   }
 
   if (!options.silent) {
-    console.log(
+    terminal.log(
       "###############################################################################################################"
     );
-    console.log("#  🚀  Launching   : " + cmds.join(" "));
-    console.log("#  📂  CWD         : " + cwd);
-    console.log(
+    terminal.log("#  🚀  Launching   : " + cmds.join(" "));
+    terminal.log("#  📂  CWD         : " + cwd);
+    terminal.log(
       "###############################################################################################################"
     );
   }
@@ -175,7 +176,7 @@ export async function launch(_options: Options = {}): Promise<string> {
   function exit(signal: string) {
     if (instance) {
       cursorTo(process.stdout, 0);
-      console.log(`[${instance.name}] instance.pid: ${instance.pid}`);
+      terminal.log(`[${instance.name}] instance.pid: ${instance.pid}`);
       instance.kill(signal || "SIGTERM");
     }
   }
@@ -202,10 +203,10 @@ export async function launch(_options: Options = {}): Promise<string> {
     }
     instance.on("close", async code => {
       if (options.exitProcessOnClose) {
-        console.log(`[${instance.name}] exit code:${code}`);
+        terminal.log(`[${instance.name}] exit code:${code}`);
         process.exit(code);
       } else {
-        console.log(`[${instance.name}] exit code:${code}`);
+        terminal.log(`[${instance.name}] exit code:${code}`);
         code === 0 ? resolve(output) : reject(lastErrorData);
       }
     });
