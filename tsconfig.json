@@ -27,5 +27,6 @@
     },
     "jsx": "react",
     "esModuleInterop": true
-  }
+  },
+  "files": ["src/types/custom.d.ts"]
 }

@@ -113,6 +113,17 @@ function getOptions(_options: ObjectMap = {}, args: string[] = []) {
   );
   return flattenOptions;
 }
+global.launcher = global.launcher || {
+  instances: [],
+  terminateAll: (signal: string) => {
+    global.launcher.instances.forEach((_instance: Instance) => {
+      terminal.log(
+        `Terminating [${_instance.name}] instance.pid: ${_instance.pid}`
+      );
+      _instance.kill(signal || "SIGTERM");
+    });
+  }
+};
 
 export async function launch(_options: Options = {}): Promise<string> {
   const args = _options.mode === "cli" ? process.argv.slice(2) : [];
@@ -173,10 +184,12 @@ export async function launch(_options: Options = {}): Promise<string> {
   });
   instance.name = cmds[0];
 
+  global.launcher.instances.push(instance);
+
   function exit(signal: string) {
     if (instance) {
       cursorTo(process.stdout, 0);
-      terminal.log(`[${instance.name}] instance.pid: ${instance.pid}`);
+      terminal.log(`Killing [${instance.name}] instance.pid: ${instance.pid}`);
       instance.kill(signal || "SIGTERM");
     }
   }
