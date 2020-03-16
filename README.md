@@ -1,4 +1,13 @@
 # Nodejs Process Launcher
+## Usage
+```ts
+import {launch} from '@1/launcher'
+
+await launch({
+  cmds:['echo', 'Hello']
+})
+
+```
 
 ## Options
 ```ts
