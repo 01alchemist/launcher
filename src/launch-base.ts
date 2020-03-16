@@ -6,6 +6,7 @@ const chalk = require("chalk");
 import * as child_process from "child_process";
 import * as readline from "readline";
 import * as fs from "fs";
+import * as path from "path";
 import terminal from "./terminal";
 
 const { cursorTo } = readline;
@@ -140,7 +141,10 @@ export async function launch(_options: Options = {}): Promise<string> {
   const cmds =
     options.cmds ||
     process.argv.slice(2).filter(arg => arg.indexOf("--cwd") === -1);
-  const cwd = baseDir + (options.cwd ? "/" + options.cwd : "/");
+  let cwd = baseDir;
+  if(options.cwd) {
+    cwd = options.cwd[0] === "/" ? options.cwd : path.resolve(baseDir, options.cwd);
+  }
 
   if (!cmds || cmds.length === 0) {
     const isCli = options.mode === "cli";
