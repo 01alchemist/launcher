@@ -2,7 +2,7 @@
   "name": "@01/launcher",
   "version": "1.0.12",
   "author": "Nidin Vinayakan <01@01alchemist.com>",
-  "repository":"https://github.com/01alchemist/launcher",
+  "repository": "https://github.com/01alchemist/launcher",
   "private": false,
   "keywords": [
     "process",
