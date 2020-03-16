@@ -142,8 +142,9 @@ export async function launch(_options: Options = {}): Promise<string> {
     options.cmds ||
     process.argv.slice(2).filter(arg => arg.indexOf("--cwd") === -1);
   let cwd = baseDir;
-  if(options.cwd) {
-    cwd = options.cwd[0] === "/" ? options.cwd : path.resolve(baseDir, options.cwd);
+  if (options.cwd) {
+    cwd =
+      options.cwd[0] === "/" ? options.cwd : path.resolve(baseDir, options.cwd);
   }
 
   if (!cmds || cmds.length === 0) {
