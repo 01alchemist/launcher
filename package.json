@@ -42,7 +42,7 @@
   "dependencies": {
     "chalk": "3.0.0",
     "dotenv": "8.2.0",
-    "minimist": "1.2.5",
+    "minimist": "1.2.6",
     "tslib": "1.11.1"
   },
   "devDependencies": {
