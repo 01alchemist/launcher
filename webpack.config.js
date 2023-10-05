@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const PrettierPlugin = require("prettier-webpack-plugin");
+// const PrettierPlugin = require("prettier-webpack-plugin");
 const pkg = require("./package.json");
 
 const mode =
@@ -48,12 +48,14 @@ module.exports = {
   entry: entries,
   externals: [
     nodeExternals({
-      whitelist: ["webpack/hot/poll?1000"]
+      allowlist: ["webpack/hot/poll?1000"]
     })
   ],
   devtool: "inline-source-map",
   optimization: {
-    minimize: false
+    minimize: false,
+    moduleIds: "named",
+    emitOnErrors: false
   },
   devServer: {
     hot: true,
@@ -69,10 +71,10 @@ module.exports = {
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(pkg.version + buildNum())
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new PrettierPlugin()
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NamedModulesPlugin(),
+    // new PrettierPlugin()
   ],
   module: {
     rules: [

@@ -35,7 +35,7 @@ type Options = {
 const defaultOptions: ObjectMap = {
   mode: "program",
   stdio: "inherit",
-  exitProcessOnClose: false
+  exitProcessOnClose: false,
 };
 
 const baseDir = process.cwd();
@@ -47,7 +47,7 @@ if (fs.existsSync(envPath)) {
   terminal.log(`Loading env vars from: ${envPath}`);
 
   require("dotenv").config({
-    path: envPath
+    path: envPath,
   });
 }
 
@@ -60,7 +60,7 @@ function mergeValue(value1: any, value2: any) {
   } else if (typeof value1 === "object" && typeof value2 === "object") {
     return {
       ...value1,
-      ...value2
+      ...value2,
     };
   }
   return value2;
@@ -87,7 +87,7 @@ function mergeOptions(
 
   return {
     name,
-    value
+    value,
   };
 }
 
@@ -97,7 +97,7 @@ function getOptions(_options: ObjectMap = {}, args: string[] = []) {
     .concat(Object.keys(_options))
     .concat(Object.keys(cliArgs));
 
-  const mergedOptions: MergedOptions = optionNames.map(optionName => {
+  const mergedOptions: MergedOptions = optionNames.map((optionName) => {
     return mergeOptions(
       optionName,
       defaultOptions[optionName],
@@ -114,16 +114,17 @@ function getOptions(_options: ObjectMap = {}, args: string[] = []) {
   );
   return flattenOptions;
 }
-global.launcher = global.launcher || {
-  instances: [],
-  terminateAll: (signal: string) => {
-    global.launcher.instances.forEach((_instance: Instance) => {
+
+const launcher = {
+  instances: [] as Instance[],
+  terminateAll: (signal: NodeJS.Signals) => {
+    launcher.instances.forEach((_instance: Instance) => {
       terminal.log(
         `Terminating [${_instance.name}] instance.pid: ${_instance.pid}`
       );
       _instance.kill(signal || "SIGTERM");
     });
-  }
+  },
 };
 
 export async function launch(_options: Options = {}): Promise<string> {
@@ -140,7 +141,7 @@ export async function launch(_options: Options = {}): Promise<string> {
   }
   const cmds =
     options.cmds ||
-    process.argv.slice(2).filter(arg => arg.indexOf("--cwd") === -1);
+    process.argv.slice(2).filter((arg) => arg.indexOf("--cwd") === -1);
   let cwd = baseDir;
   if (options.cwd) {
     cwd =
@@ -185,13 +186,13 @@ export async function launch(_options: Options = {}): Promise<string> {
   const instance = <Instance>spawn(cmds[0], cmds.slice(1), {
     stdio,
     cwd,
-    shell
+    shell,
   });
   instance.name = cmds[0];
 
-  global.launcher.instances.push(instance);
+  launcher.instances.push(instance);
 
-  function exit(signal: string) {
+  function exit(signal: NodeJS.Signals) {
     if (instance) {
       cursorTo(process.stdout, 0);
       terminal.log(`Killing [${instance.name}] instance.pid: ${instance.pid}`);
@@ -201,12 +202,12 @@ export async function launch(_options: Options = {}): Promise<string> {
 
   process.on("SIGINT", <any>exit);
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     let output = "";
     let lastErrorData = "";
     if (stdio !== "inherit") {
       if (instance.stdout) {
-        instance.stdout.on("data", function(data) {
+        instance.stdout.on("data", function (data) {
           const dataStr = data.toString();
           if (dataStr) {
             output += dataStr;
@@ -214,15 +215,15 @@ export async function launch(_options: Options = {}): Promise<string> {
         });
       }
       if (instance.stderr) {
-        instance.stderr.on("data", function(data) {
+        instance.stderr.on("data", function (data) {
           lastErrorData = data.toString();
         });
       }
     }
-    instance.on("close", async code => {
+    instance.on("close", async (code) => {
       if (options.exitProcessOnClose) {
         terminal.log(`[${instance.name}] exit code:${code}`);
-        process.exit(code);
+        process.exit(code ? code : undefined);
       } else {
         terminal.log(`[${instance.name}] exit code:${code}`);
         code === 0 ? resolve(output) : reject(lastErrorData);
