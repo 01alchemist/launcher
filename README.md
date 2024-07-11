@@ -1,7 +1,7 @@
 # Nodejs Process Launcher
 ## Usage
 ```ts
-import {launch} from '@1/launcher'
+import {launch} from '@01/launcher'
 
 await launch({
   cmds:['echo', 'Hello']
